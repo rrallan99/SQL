@@ -1,0 +1,72 @@
+#completed with the IBM Db2 database service, Database: SanFranciscoFilmLocations
+
+SELECT * FROM FilmLocations;
+
+#column atrribute descriptions
+#FilmLocations(
+#    Title:              titles of the films, 
+#    ReleaseYear:        time of public release of the films, 
+#    Locations:          locations of San Francisco where the films were shot, 
+#    FunFacts:           funny facts about the filming locations, 
+#    ProductionCompany:  companies who produced the films, 
+#    Distributor:        companies who distributed the films, 
+#    Director:           people who directed the films, 
+#    Writer:             people who wrote the films, 
+#    Actor1:             person 1 who acted in the films, 
+#    Actor2:             person 2 who acted in the films, 
+#    Actor3:             person 3 who acted in the films
+# )
+
+#SELECT Functions
+SELECT Title, Director, Writer FROM FilmLocations;
+SELECT Title, ReleaseYear, Locations FROM FilmLocations WHERE ReleaseYear>=2001;
+SELECT Locations, FunFacts FROM FilmLocations;
+SELECT Title, ReleaseYear, Locations FROM FilmLocations WHERE ReleaseYear<=2000;
+SELECT Title, ProductionCompany, Locations, ReleaseYear FROM FilmLocations WHERE Writer<>"James Cameron";
+
+#COUNT Functions
+SELECT COUNT (*) FROM FilmLocations:
+SELECT COUNT(Locations) FROM FilmLocations WHERE Writer="James Cameron";
+SELECT COUNT(Locations) FROM FilmLocations WHERE Director="Woody Allen";
+SELECT Count(Title) FROM FilmLocations WHERE Locations="Russian Hill";
+
+#Distinct Functions
+SELECT DISTINCT Title FROM FilmLocations;
+SELECT COUNT(DISTINCT ReleaseYear) FROM FilmLocations WHERE ProductionCompany="Warner Bros. Pictures";
+SELECT DISTINCT Title, ReleaseYear FROM FilmLocations WHERE ReleaseYear>=2001;
+SELECT DISTINCT Title, Director FROM FilmLocations WHERE Locations="City Hall";
+SELECT COUNT(DISTINCT Distributor) FROM FilmLocations WHERE Actor1="Clint Eastwood";
+
+#LIMIT Functions
+SELECT * FROM FilmLocations LIMIT 25;
+SELECT * FROM FilmLocations LIMIT 15 OFFSET 10;
+SELECT DISTINCT Title FROM FilmLocations LIMIT 50;
+SELECT DISTINCT Title FROM FilmLocations WHERE ReleaseYear=2015 LIMIT 10;
+SELECT DISTINCT Title FROM FilmLocations WHERE ReleaseYear=2015 LIMIT 3 OFFSET 5;
+
+#INSERT, UPDATE, DELETE Functions
+#From here on out, I used the Instructors databases using the Datasette tool, an internal database through IBM Db2 Database Service
+SELECT * FROM Instructor;
+#Column attribute descriptions
+Instructor (
+    ins_id:     unique identification number of the instructors,    
+    lastname:   last name of the instructors,
+    firstname:  first name of the instructors,
+    city:       name of the cities where instructors are located,
+    country:    two-letter country code of the countries where instructors are located
+)
+
+INSERT INTO Instructor(ins_id, lastname, firstname, city, country)
+VALUES(4, 'Saha', 'Sandip', 'Edmonton', 'CA');
+INSERT INTO Instructor(ins_id, lastname, firstname, city, country)
+VALUES(5, 'Doe', 'John', 'Sydney', 'AU'), (6, 'Doe', 'Jane', 'Dhaka', 'BD');
+
+UPDATE Instructor SET city='Toronto' WHERE firstname="Sandip";
+UPDATE Instructor SET city='Dubai', country='AE' WHERE ins_id=5;
+
+DELETE FROM instructor WHERE ins_id = 6;
+DELETE FROM instructor WHERE firstname = 'Hima';
+
+SELECT * FROM Instructor;
+
+
